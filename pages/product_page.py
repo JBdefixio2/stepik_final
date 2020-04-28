@@ -25,12 +25,22 @@ class ProductPage(BasePage):
     def should_be_the_same_name(self):
         name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
         added_name = self.browser.find_element(*ProductPageLocators.ADDED_PRODUCT_NAME).text
-        assert name == added_name, f"Added product name does not match product name in the basket. Expected {name}, got {added_name}"
+        assert name == added_name, f"Added product name does not match product name in the basket. Expected {name}, \
+         got {added_name}"
 
     def should_be_the_same_price(self):
         price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         added_price = self.browser.find_element(*ProductPageLocators.ADDED_PRODUCT_PRICE).text
-        assert price == added_price, f"Added product price does nt match product price in the basket. Expected {price}, got {added_price}"
+        assert price == added_price, f"Added product price does nt match product price in the basket. Expected {price},\
+         got {added_price}"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
